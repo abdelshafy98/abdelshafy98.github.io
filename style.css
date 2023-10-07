@@ -9,3 +9,14 @@ body {
   background-color: #111;
   font-family: system-ui, sans-serif;
 }
+
+h1 {
+  color: dodgerblue;
+}
+h1 a {
+  display: block;
+  width: fit-content;
+  padding: 4px 8px;
+  color: unset;
+  text-decoration: none;
+}
