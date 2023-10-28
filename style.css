@@ -20,3 +20,23 @@ h1 a {
   color: unset;
   text-decoration: none;
 }
+
+.contr {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+main .contr {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 5vh;
+}
+
+a.card {
+  display: block;
+  color: unset;
+  text-decoration: none;
+}
