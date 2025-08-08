@@ -1,0 +1,338 @@
+/* Phone Res: 393 x 742 , 835 x 262 */
+:root {
+  --m-color: #2172a8;
+  --s-color: #bdbdbd;
+  --t-color: #ece4d5;
+  --f1-color: #1f2023;
+  --bg1-color: #e4dfdb;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  user-select: none;
+  position: relative;
+  padding-bottom: 60px;
+  color: var(--f1-color);
+  background-color: var(--bg1-color-bg);
+  font-family: Tahoma, sans-serif;
+}
+.cont {
+  width: 100%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* ----- global rules */
+/* cover & pop-ups */
+.cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  z-index: 2;
+  transition: background-color 240ms, height 60ms;
+}
+.cover.on {
+  height: 100vh;
+  background-color: #0008;
+}
+
+.cuts-box,
+.settings-box {
+  position: absolute;
+  visibility: hidden;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  max-width: 460px;
+  border-radius: 6px;
+  padding: 0;
+  color: var(--bg1-color);
+  background-color: var(--f1-color);
+  transition: width 120ms, padding 120ms;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+.cuts-box.on,
+.settings-box.on {
+  visibility: visible;
+  z-index: 4;
+  width: 92%;
+  padding: 12px;
+}
+.cuts-box h2,
+.settings-box h2 {
+  width: fit-content;
+  padding-right: 8px;
+  margin-bottom: 30px;
+}
+.settings-box > p {
+  padding: 8px;
+  font-size: 20px;
+  width: fit-content;
+  margin-right: 12px;
+}
+.settings-box > div {
+  margin: 12px;
+  padding: 8px;
+  overflow: hidden;
+  transition: height 90ms, padding 90ms;
+}
+.settings-box .uw-box.off {
+  padding: 0;
+  height: 0;
+}
+
+.cuts-box input,
+.settings-box .uw-box input {
+  display: block;
+  border: none;
+  border-radius: 4px;
+  width: 80%;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  padding: 12px;
+  text-align: center;
+  color: var(--m-color);
+  border: 1px solid var(--s-color);
+}
+.cuts-box input:focus,
+.settings-box .uw-box input:focus {
+  outline: none;
+}
+.cuts-box .btns,
+.settings-box .uw-box .btns {
+  width: 80%;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  justify-content: space-between;
+}
+.cuts-box .btns p,
+.settings-box .uw-box .btns p {
+  padding: 12px;
+  background-color: var(--m-color);
+  border-radius: 4px;
+  width: 46%;
+  text-align: center;
+}
+
+/* ----- cover & pop-ups rules */
+/* header */
+header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: var(--s-color);
+  background-image: url(../images/cloudy-sky-bg.avif);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+header .cont {
+  text-align: center;
+  color: var(--m-color);
+}
+/* ----- header rules */
+/* main */
+main {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+main .cont .main-box {
+  border-bottom: 1px solid var(--f1-color);
+}
+main .cont .main-box .head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 12px 12px;
+  border-bottom: 1px solid var(--f1-color);
+}
+main .cont .main-box .head .day-nav-box {
+  min-width: 65px;
+}
+main .cont .main-box .head .day-nav-box p {
+  width: fit-content;
+  padding: 4px 10px;
+  color: #eee;
+  border-radius: 6px;
+  background-color: var(--m-color);
+}
+
+main .cont .main-box .head > h3 {
+  min-width: 65px;
+  color: transparent;
+  user-select: none;
+}
+main .cont .main-box .head h3.on {
+  color: var(--m-color);
+  min-width: 65px;
+}
+main .cont .main-box .head .nav {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+main .cont .main-box .head .nav h3 {
+  position: relative;
+  color: var(--f1-color);
+  min-width: 100px;
+  text-align: center;
+}
+main .cont .main-box .head .nav h3 .nav-year {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  font-weight: 600;
+  font-family: monospace;
+}
+main .cont .main-box .head .nav div {
+  padding: 4px 12px;
+  color: #484848;
+  background-color: #dddddd;
+  border-radius: 6px;
+}
+main .cont .main-box .week-days {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--s-color);
+}
+main .cont .main-box .week-days p {
+  flex: 1;
+  text-align: center;
+}
+main .cont .main-box .month-box {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--bg1-color);
+}
+main .cont .main-box .month-box p {
+  position: relative;
+  width: calc(100% / 7);
+  text-align: center;
+  padding-top: 12px;
+  padding-bottom: 10px;
+}
+main .cont .main-box .month-box p.out,
+main .cont .main-box .month-box p.out.fryday {
+  color: hsl(0, 0%, 65%);
+}
+main .cont .main-box .month-box p.today {
+  /* font-weight: bold; */
+  color: var(--m-color) !important;
+  background-color: hsl(204, 67%, 39%, 0.1) !important;
+  box-shadow: inset 0 0 0 2px var(--m-color);
+  border-radius: 4px;
+}
+main .cont .main-box .month-box p.fryday {
+  color: hsl(0, 0%, 45%);
+  background-color: hsl(0, 0%, 0%, 0.1);
+}
+/* main selecting */
+main .cont .main-box .month-box .selected::before {
+  --pad: 4px;
+  content: "";
+  position: absolute;
+  top: var(--pad);
+  right: var(--pad);
+  bottom: var(--pad);
+  left: var(--pad);
+  border: 2px solid hsl(0, 0%, 50%);
+  border-radius: 4px;
+}
+main .cont .main-box .month-box .present::after {
+  --top: 10px;
+  --size: 8px;
+  content: "";
+  position: absolute;
+  top: var(--top);
+  right: var(--top);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background-color: hsl(180, 100%, 30%, 0.6);
+  box-shadow: 0 0 0 4px var(--bg1-color);
+  z-index: -1;
+}
+main .cont .main-box .month-box .absent::after {
+  --top: 10px;
+  --size: 8px;
+  content: "";
+  position: absolute;
+  top: var(--top);
+  right: var(--top);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background-color: hsl(0, 70%, 45%, 0.6);
+  box-shadow: 0 0 0 4px var(--bg1-color);
+  z-index: -1;
+}
+/* main box-data */
+.cont .box-data {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  text-align: center;
+  margin: 8px 8px 0;
+}
+.cont .box-data div {
+  position: relative;
+  border-top: 1px solid var(--s-color);
+  border-bottom: 1px solid var(--s-color);
+  background-color: #9993;
+  border-radius: 4px;
+}
+.cont .box-data div h3 {
+  font-weight: normal;
+  padding-top: 8px;
+}
+.cont .box-data div p {
+  color: darkcyan;
+  font-weight: bold;
+  margin: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--f1-color);
+}
+
+/* ----- main rules */
+/* footer */
+footer {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid var(--f1-color);
+  background-color: var(--bg1-color);
+}
+footer .cont {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+footer .cont .prs span {
+  color: darkcyan;
+}
+footer .cont .abs span {
+  color: firebrick;
+}
+footer .cont p.gry,
+footer .cont p.gry span {
+  color: hsla(0, 0%, 30%, 0.4);
+}
