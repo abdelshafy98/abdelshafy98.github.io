@@ -5,16 +5,22 @@
   <meta charset="UTF-8" />
   <meta author="Abdelshafy Ghareeb" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="./images/Paomedia-Small-N-Flat-Calendar.png" />
-  <link rel="stylesheet" href="./css/main.css" />
-  <link rel="stylesheet" href="./css/month.css" />
-  <title>calender - home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      href="https://www.iconarchive.com/download/i103365/paomedia/small-n-flat/calendar.128.png"
+    />
+  <link rel="stylesheet" href="./style.css">
+  <title>The Awesome Calender</title>
 </head>
 
 <body>
   <div id="cover" class="cover"></div>
-
-  <!-- Settings Popup -->
   <div id="sb" class="settings-box">
     <h2 id="close-settings">&#9932;</h2>
     <p id="ouwb">&#9850; تحديث الراتب</p>
@@ -26,8 +32,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Withdrawals Popup -->
   <div id="cb" class="cuts-box">
     <h2 id="close-cuts">&#9932;</h2>
     <input type="number" id="cut-val" placeholder="أدخل قيمة">
@@ -36,8 +40,6 @@
       <p id="add-cuts">إضافة</p>
     </div>
   </div>
-
-  <!-- Header Section -->
   <header>
     <div class="cont">
       <h2 id="today">اليوم</h2>
@@ -45,24 +47,17 @@
     </div>
   </header>
 
-  <!-- Main Section -->
   <main>
     <div class="cont">
-
-      <!--  -->
       <div class="main-box">
         <div class="head">
-          <div class="day-nav-box">
-            <p id="day-nav">0</p>
-          </div>
-
+          <h3 id="deselect" class="off">تحديد</h3>
+          <p id="day-nav">0</p>
           <div class="nav">
-            <div class="prev" id="prev">&rArr;</div>
-            <h3 id="month">الشهر<span class="nav-year">2020</span></h3>
-            <div class="next" id="next">&lArr;</div>
+            <h3 class="prev" id="prev">&#8674;</h3>
+            <h3 id="month">الشهر</h3>
+            <h3 class="next" id="next">&#8672;</h3>
           </div>
-
-          <h3 id="deselect" class="off">إلغاء</h3>
         </div>
         <div class="week-days">
           <p>س</p>
@@ -71,7 +66,7 @@
           <p>ث</p>
           <p>أ</p>
           <p>خ</p>
-          <p class="fryday">ج</p>
+          <p>ج</p>
         </div>
         <div class="month-box" id="mb"></div>
       </div>
@@ -98,14 +93,13 @@
 
   <footer>
     <div class="cont" id="control">
-      <p id="pres" class="opt prs gry"><span class="o-p">&#9745;</span> حضور</p>
-      <p id="abse" class="opt abs gry"><span class="o-a">&#9746;</span> غياب</p>
-      <p id="cler" class="opt clr gry"><span class="o-c">&#9744;</span> مسح</p>
-      <p id="sets" class="sts">&#9776;</p>
+      <p class="opt prs gry"><span class="o-p">&#9745;</span> حضور</p>
+      <p class="opt abs gry"><span class="o-a">&#9746;</span> غياب</p>
+      <p class="opt clr gry"><span class="o-c">&#9744;</span> مسح</p>
+      <p class="sts">&#9776;</p>
     </div>
   </footer>
-
-  <script src="./scripts/main.js"></script>
+  <script src="./script.js"></script>
 </body>
 
 </html>
