@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta author="Abdelshafy Ghareeb" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="./images/Paomedia-Small-N-Flat-Calendar.png" />
+  <link rel="stylesheet" href="./css/main.css" />
+  <link rel="stylesheet" href="./css/month.css" />
+  <title>calender - home</title>
+</head>
+
+<body>
+  <div id="cover" class="cover"></div>
+
+  <!-- Settings Popup -->
+  <div id="sb" class="settings-box">
+    <h2 id="close-settings">&#9932;</h2>
+    <p id="ouwb">&#9850; تحديث الراتب</p>
+    <div id="ub" class="uw-box off">
+      <input type="number" id="uw-val" placeholder="0000">
+      <div class="btns">
+        <p id="uw">تحديث</p>
+        <p id="cancel-uw">إلغاء</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Withdrawals Popup -->
+  <div id="cb" class="cuts-box">
+    <h2 id="close-cuts">&#9932;</h2>
+    <input type="number" id="cut-val" placeholder="أدخل قيمة">
+    <div class="btns">
+      <p id="update-cuts">تحديث</p>
+      <p id="add-cuts">إضافة</p>
+    </div>
+  </div>
+
+  <!-- Header Section -->
+  <header>
+    <div class="cont">
+      <h2 id="today">اليوم</h2>
+      <h3 id="todate">التاريخ</h3>
+    </div>
+  </header>
+
+  <!-- Main Section -->
+  <main>
+    <div class="cont">
+
+      <!--  -->
+      <div class="main-box">
+        <div class="head">
+          <div class="day-nav-box">
+            <p id="day-nav">0</p>
+          </div>
+
+          <div class="nav">
+            <div class="prev" id="prev">&rArr;</div>
+            <h3 id="month">الشهر<span class="nav-year">2020</span></h3>
+            <div class="next" id="next">&lArr;</div>
+          </div>
+
+          <h3 id="deselect" class="off">إلغاء</h3>
+        </div>
+        <div class="week-days">
+          <p>س</p>
+          <p>ح</p>
+          <p>إ</p>
+          <p>ث</p>
+          <p>أ</p>
+          <p>خ</p>
+          <p class="fryday">ج</p>
+        </div>
+        <div class="month-box" id="mb"></div>
+      </div>
+      <div class="box-data">
+        <div class="present">
+          <h3>حضور</h3>
+          <p id="prs-val">0</ح>
+        </div>
+        <div class="absent">
+          <h3>غياب</h3>
+          <p id="abs-val">0</p>
+        </div>
+        <div id="cuts" class="cuts">
+          <h3>مسحوبات</h3>
+          <p id="month-cut">0</p>
+        </div>
+        <div id="wage" class="off">
+          <h3>المرتب</h3>
+          <p id="w">---</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="cont" id="control">
+      <p id="pres" class="opt prs gry"><span class="o-p">&#9745;</span> حضور</p>
+      <p id="abse" class="opt abs gry"><span class="o-a">&#9746;</span> غياب</p>
+      <p id="cler" class="opt clr gry"><span class="o-c">&#9744;</span> مسح</p>
+      <p id="sets" class="sts">&#9776;</p>
+    </div>
+  </footer>
+
+  <script src="./scripts/main.js"></script>
+</body>
+
+</html>
