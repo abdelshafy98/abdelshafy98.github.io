@@ -40,6 +40,20 @@ section {
   margin-bottom: 30px;
 }
 
+#app-space a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 500;
+  background: #0001;
+  width: fit-content;
+  padding: 5px 15px;
+  border-radius: 6px;
+}
+#app-space img {
+  width: 48px;
+}
 h2 {
   color: #0077cc;
   margin-bottom: 10px;
