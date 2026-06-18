@@ -40,9 +40,10 @@ section {
   margin-bottom: 30px;
 }
 
-#app-space {
+#app-space .app-grid {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 15px;
 }
 
