@@ -40,6 +40,12 @@ section {
   margin-bottom: 30px;
 }
 
+#app-space {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
 #app-space a {
   display: flex;
   align-items: center;
