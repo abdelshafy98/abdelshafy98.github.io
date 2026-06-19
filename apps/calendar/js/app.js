@@ -1,6 +1,10 @@
-// variables
-let dayList = new Set();
-let ml = [
+/* =============================================
+   The Awesome Calendar — app.js
+   Author: Abdelshafy Ghareeb
+   ============================================= */
+
+// ── Constants & State ──────────────────────────────────────────
+const MONTH_NAMES = [
   "يناير",
   "فبراير",
   "مارس",
@@ -14,374 +18,451 @@ let ml = [
   "نوفمبر",
   "ديسمبر",
 ];
-// functions
-function setDate() {
-  let today = document.getElementById("today");
-  let todate = document.getElementById("todate");
-  today.textContent = gd("day");
-  todate.textContent = `${gd("md")} ${gd("month")} ${gd("year")}`;
-}
-function gd(d = "md") {
-  let dt = new Date();
-  let wl = [
-    "الأحد",
-    "الإثنين",
-    "الثلاثاء",
-    "الأربعاء",
-    "الخميس",
-    "الجمعة",
-    "السبت",
-  ];
-  switch (d) {
-    case "year":
-      return dt.getFullYear();
-    case "month":
-      return ml[dt.getMonth()];
-    case "monthNum":
-      return dt.getMonth() + 1;
-    case "day":
-      return wl[dt.getDay()];
-    case "md":
-      return dt.getDate();
-  }
-}
+const DAY_NAMES = [
+  "الأحد",
+  "الإثنين",
+  "الثلاثاء",
+  "الأربعاء",
+  "الخميس",
+  "الجمعة",
+  "السبت",
+];
+const LS = window.localStorage;
 
-// invock functions
-setDate();
-// variables
-let dayNav = document.getElementById("day-nav");
-let today = document.getElementById("today");
-let next = document.getElementById("next");
-let prev = document.getElementById("prev");
-let prsVal = document.getElementById("prs-val");
-let absVal = document.getElementById("abs-val");
+// Current view month/year
+let viewMonth = getCurrentMonth();
+let viewYear = getCurrentYear();
+
+// Selection state
+let dayList = new Set();
 let prsList = new Set();
 let absList = new Set();
-let m = gd("monthNum");
-let y = gd("year");
-// functions
-dayNav.textContent = `${gd("md")}`;
-if (!window.localStorage.getItem("tac-wage")) {
-  window.localStorage.setItem("tac-wage", 2600);
+
+// Settings
+let fridayOff = LS.getItem("tac-friday-off") !== "false"; // default true
+
+// ── Helpers: current date ───────────────────────────────────────
+function getCurrentDay() {
+  return new Date().getDay();
 }
-function setMonth() {
-  let tomonth = document.getElementById("month");
-  tomonth.textContent = `${ml[m - 1]} ${y}`;
+function getCurrentDate() {
+  return new Date().getDate();
+}
+function getCurrentMonth() {
+  return new Date().getMonth() + 1;
+}
+function getCurrentYear() {
+  return new Date().getFullYear();
+}
+function getCurrentDayName() {
+  return DAY_NAMES[getCurrentDay()];
 }
 
-function monthData() {
-  function monthLingth() {
-    for (let i = 28; i <= 31; i++) {
-      let ln = new Date(`${y} ${m} ${i}`).getDate();
-      if (ln < i) return i - 1;
-      if (ln == 31) return i;
-    }
-  }
-  function daysBefore() {
-    let fd = new Date(`${y} ${m} 1`).getDay();
-    return fd + 1 < 7 ? fd + 1 : 0;
-  }
-  function days() {
-    return Math.ceil((daysBefore() + monthLingth()) / 7) * 7;
-  }
-  return [daysBefore(), monthLingth(), days()];
+// ── LocalStorage helpers ────────────────────────────────────────
+function getWage() {
+  return +(LS.getItem("tac-wage") || 2600);
+}
+function setWage(val) {
+  LS.setItem("tac-wage", val);
+}
+function getDayStat(key) {
+  return LS.getItem(`tac-day-${key}`);
+}
+function setDayStat(key, val) {
+  LS.setItem(`tac-day-${key}`, val);
+}
+function removeDayStat(key) {
+  LS.removeItem(`tac-day-${key}`);
+}
+function getMonthCut(m, y) {
+  return +(LS.getItem(`tac-month-${m}-${y}`) || 0);
+}
+function setMonthCut(m, y, val) {
+  if (val <= 0) LS.removeItem(`tac-month-${m}-${y}`);
+  else LS.setItem(`tac-month-${m}-${y}`, val);
 }
 
-function setDays() {
+// ── DOM Refs ────────────────────────────────────────────────────
+const $ = (id) => document.getElementById(id);
+const el = {
+  today: $("today"),
+  todate: $("todate"),
+  dayNav: $("day-nav"),
+  month: $("month"),
+  mb: $("mb"),
+  prsVal: $("prs-val"),
+  absVal: $("abs-val"),
+  monthCut: $("month-cut"),
+  wage: $("wage"),
+  wageVal: $("w"),
+  deselect: $("deselect"),
+  control: $("control"),
+  cover: $("cover"),
+  sb: $("sb"),
+  cb: $("cb"),
+  cuts: $("cuts"),
+  next: $("next"),
+  prev: $("prev"),
+  closeSettings: $("close-settings"),
+  closeCuts: $("close-cuts"),
+  updateCuts: $("update-cuts"),
+  addCuts: $("add-cuts"),
+  cutVal: $("cut-val"),
+  uw: $("uw"),
+  ouwb: $("ouwb"),
+  cancelUw: $("cancel-uw"),
+  uwVal: $("uw-val"),
+  ub: $("ub"),
+  fridayToggle: $("toggle-friday"),
+  fridayLabel: $("friday-label"),
+  fridayInd: $("friday-indicator"),
+  selectAllBtn: $("select-all-btn"),
+  progressBar: $("progress-bar"),
+  progPrs: $("progress-label-prs"),
+  progAbs: $("progress-label-abs"),
+  attendRate: $("attendance-rate"),
+};
+
+// ── Header: today's info ────────────────────────────────────────
+function renderHeader() {
+  el.today.textContent = getCurrentDayName();
+  el.todate.textContent = `${getCurrentDate()} ${MONTH_NAMES[getCurrentMonth() - 1]} ${getCurrentYear()}`;
+  el.dayNav.textContent = getCurrentDate();
+}
+
+// ── Calendar: month data ────────────────────────────────────────
+function getMonthLength(y, m) {
+  return new Date(y, m, 0).getDate(); // elegant: day 0 of next month
+}
+function getDaysBefore(y, m) {
+  const fd = new Date(y, m - 1, 1).getDay(); // 0=Sun
+  return (fd + 1) % 7; // shift so Saturday=0 for RTL Arabic layout
+}
+
+// ── Calendar: render ────────────────────────────────────────────
+function renderCalendar() {
   prsList.clear();
   absList.clear();
-  let daysAfter = monthData()[2] - monthData()[0] - monthData()[1];
-  let monthBox = document.getElementById("mb");
-  let monthFrag = new DocumentFragment();
-  for (let i = 0; i < monthData()[0]; i++) {
-    let p = document.createElement("p");
+
+  const m = viewMonth,
+    y = viewYear;
+  const monthLen = getMonthLength(y, m);
+  const daysBefore = getDaysBefore(y, m);
+  const totalCells = Math.ceil((daysBefore + monthLen) / 7) * 7;
+  const daysAfter = totalCells - daysBefore - monthLen;
+
+  const frag = new DocumentFragment();
+
+  // Empty cells before month start
+  for (let i = 0; i < daysBefore; i++) {
+    const p = document.createElement("p");
     p.className = "day";
-    p.textContent = ".";
-    monthFrag.append(p);
+    p.textContent = "";
+    frag.append(p);
   }
-  for (let i = 0; i < monthData()[1]; i++) {
-    let p = document.createElement("p");
-    p.className = `day act ${i + 1}-${m}-${y}`;
-    if (window.localStorage.getItem(`tac-day-${i + 1}-${m}-${y}`)) {
-      let clas = window.localStorage.getItem(`tac-day-${i + 1}-${m}-${y}`);
-      p.classList.add(clas);
-      clas == "present"
-        ? prsList.add(`${i + 1}-${m}-${y}`)
-        : absList.add(`${i + 1}-${m}-${y}`);
+
+  // Actual days
+  for (let d = 1; d <= monthLen; d++) {
+    const key = `${d}-${m}-${y}`;
+    const p = document.createElement("p");
+    p.className = `day act ${key}`;
+
+    const stat = getDayStat(key);
+    if (stat) {
+      p.classList.add(stat);
+      stat === "present" ? prsList.add(key) : absList.add(key);
     }
-    if (y == gd("year") && m == gd("monthNum") && i + 1 == gd("md")) {
-      p.classList.add("today");
-    }
-    if (new Date(`${y} ${m} ${i + 1}`).getDay() == 5) p.classList.add("fryday");
-    p.textContent = i + 1;
-    monthFrag.append(p);
+
+    const isToday =
+      y === getCurrentYear() &&
+      m === getCurrentMonth() &&
+      d === getCurrentDate();
+    if (isToday) p.classList.add("today");
+
+    const dow = new Date(y, m - 1, d).getDay();
+    if (fridayOff && dow === 5) p.classList.add("fryday");
+
+    p.textContent = d;
+    frag.append(p);
   }
-  prsVal.textContent = prsList.size;
-  absVal.textContent = absList.size;
+
+  // Empty cells after month end
   for (let i = 0; i < daysAfter; i++) {
-    let p = document.createElement("p");
+    const p = document.createElement("p");
     p.className = "day";
-    p.textContent = ".";
-    monthFrag.append(p);
+    p.textContent = "";
+    frag.append(p);
   }
-  monthBox.innerHTML = "";
-  monthBox.append(monthFrag);
-  if (window.localStorage.getItem(`tac-month-${m}-${y}`)) {
-    let val = window.localStorage.getItem(`tac-month-${m}-${y}`);
-    document.getElementById("month-cut").textContent = val;
-  } else {
-    document.getElementById("month-cut").textContent = "0";
+
+  el.mb.innerHTML = "";
+  el.mb.append(frag);
+
+  el.month.textContent = `${MONTH_NAMES[m - 1]} ${y}`;
+  el.prsVal.textContent = prsList.size;
+  el.absVal.textContent = absList.size;
+
+  const cut = getMonthCut(m, y);
+  el.monthCut.textContent = cut || "0";
+
+  renderProgress();
+  updateWageDisplay();
+}
+
+// ── Progress bar ────────────────────────────────────────────────
+function renderProgress() {
+  const prs = prsList.size;
+  const abs = absList.size;
+  const total = prs + abs;
+  const rate = total > 0 ? Math.round((prs / total) * 100) : 0;
+
+  el.progressBar.style.width = `${rate}%`;
+  el.progPrs.textContent = `حضور: ${prs}`;
+  el.progAbs.textContent = `غياب: ${abs}`;
+  el.attendRate.textContent = total > 0 ? `${rate}%` : "—";
+}
+
+// ── Wage calculation ────────────────────────────────────────────
+function calcWage() {
+  const dailyRate = getWage() / 26;
+  const prs = prsList.size;
+  const abs = absList.size;
+  const cut = getMonthCut(viewMonth, viewYear);
+
+  // If absent > half the working days, count actual present days
+  const effectiveDays = abs > 13 ? prs : 26 - abs;
+  return Math.ceil(effectiveDays * dailyRate - cut);
+}
+
+function updateWageDisplay() {
+  if (el.wage.classList.contains("on")) {
+    el.wageVal.textContent = calcWage().toLocaleString("ar-EG") + " ج.م";
   }
 }
 
-// nav function-----------------
-// -----------------------------
-function thisMonth() {
-  if (m != gd("monthNum") || y != gd("year")) {
-    m = gd("monthNum");
-    y = gd("year");
+function toggleWage() {
+  const isOn = el.wage.classList.toggle("on");
+  el.wage.classList.toggle("off", !isOn);
+  el.wageVal.textContent = isOn
+    ? calcWage().toLocaleString("ar-EG") + " ج.م"
+    : "اضغط";
+}
+
+// ── Navigation ──────────────────────────────────────────────────
+function goToCurrentMonth() {
+  if (viewMonth !== getCurrentMonth() || viewYear !== getCurrentYear()) {
+    viewMonth = getCurrentMonth();
+    viewYear = getCurrentYear();
     deselect();
-    setMonth();
-    setDays();
-    updateWage();
+    renderCalendar();
   }
 }
-function nextMonth() {
-  if (m == 12) {
-    m = 1;
-    y++;
-  } else m++;
+function goNextMonth() {
+  viewMonth === 12 ? ((viewMonth = 1), viewYear++) : viewMonth++;
   deselect();
-  setMonth();
-  setDays();
-  updateWage();
+  renderCalendar();
 }
-function prevMonth() {
-  if (m == 1) {
-    m = 12;
-    y--;
-  } else m--;
+function goPrevMonth() {
+  viewMonth === 1 ? ((viewMonth = 12), viewYear--) : viewMonth--;
   deselect();
-  setMonth();
-  setDays();
-  updateWage();
+  renderCalendar();
 }
-// invock functions
-setMonth();
-setDays();
-dayNav.addEventListener("click", thisMonth);
-today.addEventListener("click", thisMonth);
-next.addEventListener("click", nextMonth);
-prev.addEventListener("click", prevMonth);
 
-// -------------------------------------------------
-// -------------------------------------------------
-// -------------------------------------------------
-// variables
-let mb = document.getElementById("mb");
-let control = document.getElementById("control");
-let dSelect = document.getElementById("deselect");
-let options = document.querySelectorAll(".opt");
-let wage = document.getElementById("wage");
-let sb = document.getElementById("sb");
-let closeSettings = document.getElementById("close-settings");
+// ── Selection ───────────────────────────────────────────────────
+function handleDayClick(e) {
+  const target = e.target;
+  const key = target.classList[2]; // e.g. "5-6-2025"
+  if (!key || !target.classList.contains("act")) return;
 
-// function
-function select(e) {
-  if (e.target.classList[2]) {
-    e.target.classList.toggle("selected");
-    dayList.has(e.target.classList[2])
-      ? dayList.delete(e.target.classList[2])
-      : dayList.add(e.target.classList[2]);
-  }
-  if (dayList.size > 0) {
-    dSelect.innerHTML = "&#9932; إلغاء";
-    dSelect.className = "on";
-    options.forEach((e) => {
-      e.classList.remove("gry");
-    });
-  } else {
-    dSelect.textContent = "تحديد";
-    dSelect.className = "off";
-    options.forEach((e) => {
-      e.classList.add("gry");
-    });
-  }
+  target.classList.toggle("selected");
+  dayList.has(key) ? dayList.delete(key) : dayList.add(key);
+  updateDeselectBtn();
 }
+
 function deselect() {
-  dSelect.textContent = "تحديد";
-  dSelect.className = "off";
-  let p = document.querySelectorAll(".month-box .day");
-  p.forEach((e) => {
-    e.classList.remove("selected");
-  });
-  options.forEach((e) => {
-    e.classList.add("gry");
-  });
   dayList.clear();
+  document
+    .querySelectorAll(".month-box .day.selected")
+    .forEach((p) => p.classList.remove("selected"));
+  updateDeselectBtn();
 }
-function displayWage() {
-  let w = +window.localStorage.getItem("tac-wage") / 26;
-  if (+absVal.textContent > 13) {
-    if (window.localStorage.getItem(`tac-month-${m}-${y}`)) {
-      let cut = +window.localStorage.getItem(`tac-month-${m}-${y}`);
-      val = +prsVal.textContent * w - cut;
-    } else val = +prsVal.textContent * w;
-  } else {
-    if (window.localStorage.getItem(`tac-month-${m}-${y}`)) {
-      let cut = +window.localStorage.getItem(`tac-month-${m}-${y}`);
-      val = (26 - +absVal.textContent) * w - cut;
-    } else val = (26 - +absVal.textContent) * w;
-  }
-  if (window.localStorage.getItem(`tac-month-${m}-${y}`)) {
-    let cut = +window.localStorage.getItem(`tac-month-${m}-${y}`);
-    val2 = +prsVal.textContent * w - cut;
-  } else val2 = +prsVal.textContent * w;
-  if (wage.className == "off") {
-    wage.className = "on";
-    document.getElementById("w").textContent = Math.ceil(val);
-  } else if (wage.className == "on") {
-    wage.className = "off";
-    document.getElementById("w").innerHTML = "---";
-  }
+
+function updateDeselectBtn() {
+  const hasSelection = dayList.size > 0;
+  el.deselect.className = hasSelection ? "deselect-btn on" : "deselect-btn off";
+  el.deselect.innerHTML = hasSelection ? "✕ إلغاء" : "تحديد";
+  document.querySelectorAll(".opt").forEach((btn) => {
+    btn.classList.toggle("gry", !hasSelection);
+  });
 }
-function updateWage() {
-  if (wage.className == "on") {
-    let w = +window.localStorage.getItem("tac-wage") / 26;
-    if (+absVal.textContent > 13) {
-      if (window.localStorage.getItem(`tac-month-${m}-${y}`)) {
-        let cut = +window.localStorage.getItem(`tac-month-${m}-${y}`);
-        val = +prsVal.textContent * w - cut;
-      } else val = +prsVal.textContent * w;
-    } else {
-      if (window.localStorage.getItem(`tac-month-${m}-${y}`)) {
-        let cut = +window.localStorage.getItem(`tac-month-${m}-${y}`);
-        val = (26 - +absVal.textContent) * w - cut;
-      } else val = (26 - +absVal.textContent) * w;
+
+// Select all active days in the current month
+function selectAll() {
+  closePanel();
+  document.querySelectorAll(".month-box .day.act").forEach((p) => {
+    const key = p.classList[2];
+    if (key) {
+      p.classList.add("selected");
+      dayList.add(key);
     }
-    if (window.localStorage.getItem(`tac-month-${m}-${y}`)) {
-      let cut = +window.localStorage.getItem(`tac-month-${m}-${y}`);
-      val2 = +prsVal.textContent * w - cut;
-    } else val2 = +prsVal.textContent * w;
-    document.getElementById("w").textContent = Math.ceil(val);
-  }
+  });
+  updateDeselectBtn();
 }
-// control
-function controlData(e) {
-  if (e.target.className == "sts") {
-    sb.classList.add("on");
-    cover.classList.add("on");
-  } else if (dayList.size > 0) {
-    if (e.target.classList[1] == "prs" || e.target.className == "o-p") {
-      for (let day of dayList) {
-        document.getElementsByClassName(day)[0].classList.remove("absent");
-        document.getElementsByClassName(day)[0].classList.add("present");
-        window.localStorage.setItem(`tac-day-${day}`, "present");
-      }
-    } else if (e.target.classList[1] == "abs" || e.target.className == "o-a") {
-      for (let day of dayList) {
-        document.getElementsByClassName(day)[0].classList.remove("present");
-        document.getElementsByClassName(day)[0].classList.add("absent");
-        window.localStorage.setItem(`tac-day-${day}`, "absent");
-      }
-    } else if (e.target.classList[1] == "clr" || e.target.className == "o-c") {
-      for (let day of dayList) {
-        document.getElementsByClassName(day)[0].classList.remove("present");
-        document.getElementsByClassName(day)[0].classList.remove("absent");
-        window.localStorage.removeItem(`tac-day-${day}`);
-      }
+
+// ── Apply attendance ────────────────────────────────────────────
+function handleControl(e) {
+  const t = e.target;
+
+  // Settings button
+  if (t.classList.contains("sts")) {
+    openPanel(el.sb);
+    return;
+  }
+
+  if (dayList.size === 0) return;
+
+  const isPrs = t.classList.contains("prs") || t.classList.contains("o-p");
+  const isAbs = t.classList.contains("abs") || t.classList.contains("o-a");
+  const isClr = t.classList.contains("clr") || t.classList.contains("o-c");
+
+  for (const key of dayList) {
+    const cell = document.querySelector(`.${CSS.escape(key)}`);
+    if (!cell) continue;
+    cell.classList.remove("present", "absent");
+    if (isPrs) {
+      cell.classList.add("present");
+      setDayStat(key, "present");
+    } else if (isAbs) {
+      cell.classList.add("absent");
+      setDayStat(key, "absent");
+    } else if (isClr) {
+      removeDayStat(key);
     }
-    setDays();
-    deselect();
-    updateWage();
   }
+
+  deselect();
+  renderCalendar();
 }
 
-// invock functions
-mb.addEventListener("click", select);
-dSelect.addEventListener("click", deselect);
-control.addEventListener("click", controlData);
-wage.addEventListener("click", displayWage);
-// test code
-// -------------------------------------
-let cb = document.getElementById("cb");
-let cuts = document.getElementById("cuts");
-let cover = document.getElementById("cover");
-let closeCuts = document.getElementById("close-cuts");
-let updateCuts = document.getElementById("update-cuts");
-let addCuts = document.getElementById("add-cuts");
-
-function runCut() {
-  cover.classList.add("on");
-  cb.classList.add("on");
-  document.getElementById("cut-val").value = "";
-  document.getElementById("cut-val").focus();
+// ── Panels ──────────────────────────────────────────────────────
+function openPanel(panel) {
+  panel.classList.add("on");
+  el.cover.classList.add("on");
 }
-function endCut() {
-  cover.classList.remove("on");
-  cb.classList.remove("on");
-  sb.classList.remove("on");
-  endOu();
-}
-function updatingCuts() {
-  let val = document.getElementById("cut-val").value;
-  if (val != "") {
-    if (val == 0) {
-      window.localStorage.removeItem(`tac-month-${m}-${y}`);
-    } else window.localStorage.setItem(`tac-month-${m}-${y}`, val);
-    document.getElementById("month-cut").textContent = val;
-    endCut();
-    updateWage();
-  }
-}
-function addingCuts() {
-  let val = document.getElementById("cut-val").value;
-  if (val != "") {
-    if (window.localStorage.getItem(`tac-month-${m}-${y}`)) {
-      let curentVal = +window.localStorage.getItem(`tac-month-${m}-${y}`);
-      let newVal = +val + curentVal;
-      window.localStorage.setItem(`tac-month-${m}-${y}`, newVal);
-      document.getElementById("month-cut").textContent = newVal;
-    } else {
-      window.localStorage.setItem(`tac-month-${m}-${y}`, val);
-      document.getElementById("month-cut").textContent = val;
-    }
-    endCut();
-    updateWage();
-  }
+function closePanel() {
+  el.sb.classList.remove("on");
+  el.cb.classList.remove("on");
+  el.cover.classList.remove("on");
+  el.ub.classList.add("off");
 }
 
-cuts.addEventListener("click", runCut);
-cover.addEventListener("click", endCut);
-closeCuts.addEventListener("click", endCut);
-updateCuts.addEventListener("click", updatingCuts);
-addCuts.addEventListener("click", addingCuts);
-closeSettings.addEventListener("click", endCut);
-// -------------------------------------------
-
-let uw = document.getElementById("uw");
-let ouwb = document.getElementById("ouwb");
-let cancelUw = document.getElementById("cancel-uw");
-
-function ou() {
-  let inp = document.getElementById("uw-val");
-  inp.value = "";
-  inp.placeholder = window.localStorage.getItem("tac-wage");
-  document.getElementById("ub").classList.remove("off");
-  inp.focus();
+// ── Cuts ────────────────────────────────────────────────────────
+function openCuts() {
+  el.cutVal.value = "";
+  el.cutVal.placeholder = getMonthCut(viewMonth, viewYear) || "0";
+  openPanel(el.cb);
+  el.cutVal.focus();
 }
-function endOu() {
-  document.getElementById("ub").classList.add("off");
+function setCuts() {
+  const val = +el.cutVal.value;
+  if (el.cutVal.value === "") return;
+  setMonthCut(viewMonth, viewYear, val);
+  el.monthCut.textContent = val || "0";
+  closePanel();
+  updateWageDisplay();
 }
-function uWage() {
-  let inp = document.getElementById("uw-val");
-  if (inp.value != "" && +inp.value >= 0) {
-    window.localStorage.setItem("tac-wage", inp.value);
-    endOu();
-    updateWage();
-  }
+function addCuts() {
+  const val = +el.cutVal.value;
+  if (el.cutVal.value === "") return;
+  const current = getMonthCut(viewMonth, viewYear);
+  const newVal = current + val;
+  setMonthCut(viewMonth, viewYear, newVal);
+  el.monthCut.textContent = newVal;
+  closePanel();
+  updateWageDisplay();
 }
 
-uw.addEventListener("click", uWage);
-ouwb.addEventListener("click", ou);
-cancelUw.addEventListener("click", endOu);
+// ── Wage update ─────────────────────────────────────────────────
+function openWageInput() {
+  el.uwVal.value = "";
+  el.uwVal.placeholder = getWage();
+  el.ub.classList.remove("off");
+  el.uwVal.focus();
+}
+function closeWageInput() {
+  el.ub.classList.add("off");
+}
+function saveWage() {
+  const val = +el.uwVal.value;
+  if (el.uwVal.value === "" || val < 0) return;
+  setWage(val);
+  closeWageInput();
+  updateWageDisplay();
+}
+
+// ── Friday toggle ───────────────────────────────────────────────
+function toggleFriday() {
+  fridayOff = !fridayOff;
+  LS.setItem("tac-friday-off", fridayOff);
+  el.fridayLabel.textContent = fridayOff ? "الجمعة: إجازة" : "الجمعة: يوم عمل";
+  el.fridayInd.textContent = fridayOff ? "✓" : "✗";
+  el.fridayInd.style.color = fridayOff
+    ? "var(--present-color)"
+    : "var(--absent-color)";
+  renderCalendar();
+}
+
+// ── Init ────────────────────────────────────────────────────────
+function init() {
+  // Ensure wage default
+  if (!LS.getItem("tac-wage")) setWage(2600);
+
+  // Sync friday toggle UI
+  el.fridayLabel.textContent = fridayOff ? "الجمعة: إجازة" : "الجمعة: يوم عمل";
+  el.fridayInd.textContent = fridayOff ? "✓" : "✗";
+  el.fridayInd.style.color = fridayOff
+    ? "var(--present-color)"
+    : "var(--absent-color)";
+
+  renderHeader();
+  renderCalendar();
+
+  // Nav
+  el.next.addEventListener("click", goNextMonth);
+  el.prev.addEventListener("click", goPrevMonth);
+  el.dayNav.addEventListener("click", goToCurrentMonth);
+  el.today.addEventListener("click", goToCurrentMonth);
+
+  // Calendar interaction
+  el.mb.addEventListener("click", handleDayClick);
+  el.deselect.addEventListener("click", deselect);
+  el.control.addEventListener("click", handleControl);
+
+  // Wage
+  el.wage.addEventListener("click", toggleWage);
+  el.ouwb.addEventListener("click", openWageInput);
+  el.uw.addEventListener("click", saveWage);
+  el.cancelUw.addEventListener("click", closeWageInput);
+  el.uwVal.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") saveWage();
+  });
+
+  // Cuts
+  el.cuts.addEventListener("click", openCuts);
+  el.cuts.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") openCuts();
+  });
+  el.updateCuts.addEventListener("click", setCuts);
+  el.addCuts.addEventListener("click", addCuts);
+  el.closeCuts.addEventListener("click", closePanel);
+  el.cutVal.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") setCuts();
+  });
+
+  // Settings
+  el.closeSettings.addEventListener("click", closePanel);
+  el.cover.addEventListener("click", closePanel);
+  el.fridayToggle.addEventListener("click", toggleFriday);
+  el.selectAllBtn.addEventListener("click", selectAll);
+}
+
+init();

@@ -1,105 +1,216 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta author="Abdelshafy Ghareeb" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Abdelshafy Ghareeb" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Work+Sans:wght@300;400;600&display=swap"
       rel="stylesheet"
     />
     <link
       rel="icon"
       href="https://www.iconarchive.com/download/i103365/paomedia/small-n-flat/calendar.128.png"
     />
-  <link rel="stylesheet" href="css/main.css">
-  <title>The Awesome Calender</title>
-</head>
+    <link rel="stylesheet" href="css/mainC.css" />
+    <title>The Awesome Calendar</title>
+  </head>
 
-<body>
-  <div id="cover" class="cover"></div>
-  <div id="sb" class="settings-box">
-    <h2 id="close-settings">&#9932;</h2>
-    <p id="ouwb">&#9850; تحديث الراتب</p>
-    <div id="ub" class="uw-box off">
-      <input type="number" id="uw-val" placeholder="0000">
-      <div class="btns">
-        <p id="uw">تحديث</p>
-        <p id="cancel-uw">إلغاء</p>
+  <body>
+    <!-- Overlay -->
+    <div id="cover" class="cover"></div>
+
+    <!-- Settings Panel -->
+    <div
+      id="sb"
+      class="settings-box"
+      role="dialog"
+      aria-modal="true"
+      aria-label="الإعدادات"
+    >
+      <div class="panel-header">
+        <h2 class="panel-title">⚙️ الإعدادات</h2>
+        <button id="close-settings" class="close-btn" aria-label="إغلاق">
+          ✕
+        </button>
       </div>
-    </div>
-  </div>
-  <div id="cb" class="cuts-box">
-    <h2 id="close-cuts">&#9932;</h2>
-    <input type="number" id="cut-val" placeholder="أدخل قيمة">
-    <div class="btns">
-      <p id="update-cuts">تحديث</p>
-      <p id="add-cuts">إضافة</p>
-    </div>
-  </div>
-  <header>
-    <div class="cont">
-      <h2 id="today">اليوم</h2>
-      <h3 id="todate">التاريخ</h3>
-    </div>
-  </header>
 
-  <main>
-    <div class="cont">
-      <div class="main-box">
-        <div class="head">
-          <h3 id="deselect" class="off">تحديد</h3>
-          <p id="day-nav">0</p>
-          <div class="nav">
-            <h3 class="prev" id="prev">&#8674;</h3>
-            <h3 id="month">الشهر</h3>
-            <h3 class="next" id="next">&#8672;</h3>
+      <div class="settings-item">
+        <button id="ouwb" class="settings-trigger">
+          <span class="s-icon">💰</span>
+          <span>تحديث الراتب</span>
+          <span class="s-arrow">&#8635;</span>
+        </button>
+        <div id="ub" class="uw-box off">
+          <input
+            type="number"
+            id="uw-val"
+            placeholder="أدخل الراتب الأساسي"
+            min="0"
+          />
+          <div class="btns">
+            <button id="uw" class="btn-primary">حفظ</button>
+            <button id="cancel-uw" class="btn-secondary">إلغاء</button>
           </div>
         </div>
-        <div class="week-days">
-          <p>س</p>
-          <p>ح</p>
-          <p>إ</p>
-          <p>ث</p>
-          <p>أ</p>
-          <p>خ</p>
-          <p>ج</p>
-        </div>
-        <div class="month-box" id="mb"></div>
       </div>
-      <div class="box-data">
-        <div class="present">
-          <h3>حضور</h3>
-          <p id="prs-val">0</ح>
-        </div>
-        <div class="absent">
-          <h3>غياب</h3>
-          <p id="abs-val">0</p>
-        </div>
-        <div id="cuts" class="cuts">
-          <h3>مسحوبات</h3>
-          <p id="month-cut">0</p>
-        </div>
-        <div id="wage" class="off">
-          <h3>المرتب</h3>
-          <p id="w">---</p>
-        </div>
+
+      <div class="settings-item">
+        <button id="toggle-friday" class="settings-trigger">
+          <span class="s-icon">📅</span>
+          <span id="friday-label">الجمعة: إجازة</span>
+          <span class="s-arrow toggle-indicator" id="friday-indicator">✓</span>
+        </button>
+      </div>
+
+      <div class="settings-item">
+        <button id="select-all-btn" class="settings-trigger">
+          <span class="s-icon">☑️</span>
+          <span>تحديد جميع أيام الشهر</span>
+        </button>
       </div>
     </div>
-  </main>
 
-  <footer>
-    <div class="cont" id="control">
-      <p class="opt prs gry"><span class="o-p">&#9745;</span> حضور</p>
-      <p class="opt abs gry"><span class="o-a">&#9746;</span> غياب</p>
-      <p class="opt clr gry"><span class="o-c">&#9744;</span> مسح</p>
-      <p class="sts">&#9776;</p>
+    <!-- Cuts / Deductions Panel -->
+    <div
+      id="cb"
+      class="cuts-box"
+      role="dialog"
+      aria-modal="true"
+      aria-label="المسحوبات"
+    >
+      <div class="panel-header">
+        <h2 class="panel-title">✂️ المسحوبات</h2>
+        <button id="close-cuts" class="close-btn" aria-label="إغلاق">✕</button>
+      </div>
+      <input type="number" id="cut-val" placeholder="أدخل القيمة" min="0" />
+      <div class="btns">
+        <button id="update-cuts" class="btn-primary">تعيين</button>
+        <button id="add-cuts" class="btn-secondary">إضافة</button>
+      </div>
     </div>
-  </footer>
-  <script src="js/app.js"></script>
-</body>
 
+    <!-- Header -->
+    <header>
+      <div class="cont">
+        <div class="header-inner">
+          <div class="date-block">
+            <h2 id="today" title="اضغط للعودة لهذا الشهر">اليوم</h2>
+            <h3 id="todate">التاريخ</h3>
+          </div>
+          <div class="header-badge">
+            <span id="attendance-rate">—</span>
+            <small>معدل الحضور</small>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main>
+      <div class="cont">
+        <!-- Calendar -->
+        <div class="main-box">
+          <div class="head">
+            <button id="deselect" class="deselect-btn off">تحديد</button>
+            <button
+              id="day-nav"
+              class="day-nav-btn"
+              title="العودة للشهر الحالي"
+            >
+              0
+            </button>
+            <div class="nav">
+              <button class="nav-btn" id="prev" aria-label="الشهر السابق">
+                &#8702;
+              </button>
+              <h3 id="month">الشهر</h3>
+              <button class="nav-btn" id="next" aria-label="الشهر التالي">
+                &#8701;
+              </button>
+            </div>
+          </div>
+
+          <div class="week-days">
+            <p>س</p>
+            <p>ح</p>
+            <p>إ</p>
+            <p>ث</p>
+            <p>أ</p>
+            <p>خ</p>
+            <p class="friday-label">ج</p>
+          </div>
+
+          <div class="month-box" id="mb"></div>
+        </div>
+
+        <!-- Stats -->
+        <div class="box-data">
+          <div class="stat-card present-card">
+            <span class="stat-icon">✅</span>
+            <h3>حضور</h3>
+            <p id="prs-val">0</p>
+          </div>
+          <div class="stat-card absent-card">
+            <span class="stat-icon">❌</span>
+            <h3>غياب</h3>
+            <p id="abs-val">0</p>
+          </div>
+          <div
+            id="cuts"
+            class="stat-card cuts-card"
+            role="button"
+            tabindex="0"
+            title="اضغط لتعديل المسحوبات"
+          >
+            <span class="stat-icon">✂️</span>
+            <h3>مسحوبات</h3>
+            <p id="month-cut">0</p>
+          </div>
+          <div
+            id="wage"
+            class="stat-card wage-card off"
+            role="button"
+            tabindex="0"
+            title="اضغط لإظهار/إخفاء المرتب"
+          >
+            <span class="stat-icon">💵</span>
+            <h3>المرتب</h3>
+            <p id="w">اضغط</p>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-section">
+          <div class="progress-bar-wrap">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+          <div class="progress-labels">
+            <span id="progress-label-prs">حضور: 0</span>
+            <span id="progress-label-abs">غياب: 0</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Controls -->
+    <footer>
+      <div class="cont" id="control">
+        <button class="opt prs gry" aria-label="تسجيل حضور">
+          <span class="o-p">✅</span> حضور
+        </button>
+        <button class="opt abs gry" aria-label="تسجيل غياب">
+          <span class="o-a">❌</span> غياب
+        </button>
+        <button class="opt clr gry" aria-label="مسح التسجيل">
+          <span class="o-c">⬜</span> مسح
+        </button>
+        <button class="sts" aria-label="الإعدادات">☰</button>
+      </div>
+    </footer>
+
+    <script src="js/appC.js"></script>
+  </body>
 </html>
