@@ -235,7 +235,7 @@ function calcWage() {
 
 function updateWageDisplay() {
   if (el.wage.classList.contains("on")) {
-    el.wageVal.textContent = calcWage().toLocaleString("ar-EG") + " ج.م";
+    el.wageVal.textContent = calcWage().toLocaleString("ar-EG") + "";
   }
 }
 
@@ -243,7 +243,7 @@ function toggleWage() {
   const isOn = el.wage.classList.toggle("on");
   el.wage.classList.toggle("off", !isOn);
   el.wageVal.textContent = isOn
-    ? calcWage().toLocaleString("ar-EG") + " ج.م"
+    ? calcWage().toLocaleString("ar-EG") + ""
     : "اضغط";
 }
 
