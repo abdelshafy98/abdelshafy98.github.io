@@ -1,0 +1,124 @@
+/* How To Use
+ * ----------
+ * Give the element a class="box"
+ *
+ * class="box"      >>> max-width 540→720→960→1140→1320px, centered, no side padding when constrained
+ * class="box md"   >>> full-width up to 768px, then breaks like .box
+ * class="box lg"   >>> full-width up to 992px, then breaks like .box
+ * class="box xl"   >>> full-width up to 1200px, then breaks like .box
+ * class="box xxl"  >>> full-width up to 1400px, then breaks like .box
+ * class="box fluid">>> full-width at every screen size, never breaks
+ *
+ * When at full-width  → 20px side padding
+ * When constrained    → 0 side padding (centering handles spacing)
+ */
+
+:root {
+  --padding-lr: 20px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--padding-lr);
+  padding-right: var(--padding-lr);
+}
+
+/* ── 576px ── */
+@media (min-width: 576px) {
+  .box {
+    max-width: 540px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .box.md,
+  .box.lg,
+  .box.xl,
+  .box.xxl,
+  .box.fluid {
+    max-width: 100%;
+    padding-left: var(--padding-lr);
+    padding-right: var(--padding-lr);
+  }
+}
+
+/* ── 768px ── */
+@media (min-width: 768px) {
+  .box,
+  .box.md {
+    max-width: 720px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .box.lg,
+  .box.xl,
+  .box.xxl,
+  .box.fluid {
+    max-width: 100%;
+    padding-left: var(--padding-lr);
+    padding-right: var(--padding-lr);
+  }
+}
+
+/* ── 992px ── */
+@media (min-width: 992px) {
+  .box,
+  .box.md,
+  .box.lg {
+    max-width: 960px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .box.xl,
+  .box.xxl,
+  .box.fluid {
+    max-width: 100%;
+    padding-left: var(--padding-lr);
+    padding-right: var(--padding-lr);
+  }
+}
+
+/* ── 1200px ── */
+@media (min-width: 1200px) {
+  .box,
+  .box.md,
+  .box.lg,
+  .box.xl {
+    max-width: 1140px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .box.xxl,
+  .box.fluid {
+    max-width: 100%;
+    padding-left: var(--padding-lr);
+    padding-right: var(--padding-lr);
+  }
+}
+
+/* ── 1400px ── */
+@media (min-width: 1400px) {
+  .box,
+  .box.md,
+  .box.lg,
+  .box.xl,
+  .box.xxl {
+    max-width: 1320px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .box.fluid {
+    max-width: 100%;
+    padding-left: var(--padding-lr);
+    padding-right: var(--padding-lr);
+  }
+}

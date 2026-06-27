@@ -3,99 +3,625 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Full-Stack Developer portfolio. ✦ Specializing in Node.js, JavaScript, and MySQL. ✦ Explore my latest projects, web apps, and clean code architectures."
+    />
+    <meta name="author" content="Abdelshafy Ghareeb" />
+    <title>Shafy Web - Abdelshafy Ghareeb</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Racing+Sans+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap"
       rel="stylesheet"
     />
     <link rel="icon" type="image/png" href="./imgs/portfolio_icon.png" />
-    <title>Abdelshafy Ghareeb | Portfolio</title>
+
+    <link rel="stylesheet" href="./css/normalize.css" />
+    <link rel="stylesheet" href="./css/media-box.css" />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
-
   <body>
+    <!--  HEADER  -->
     <header>
-      <h1>Abdelshafy Ghareeb</h1>
-      <p>Aspiring Front-End Web Developer</p>
+      <div class="box xxl">
+        <nav>
+          <a href="" class="nav-logo">Shafy <span>web</span></a>
+
+          <button
+            class="hamburger"
+            id="hamburger"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+          >
+            <span></span><span></span><span></span>
+          </button>
+
+          <div class="nav-menu">
+            <a href="#hero" class="menu-link">Home</a>
+            <a href="#about" class="menu-link">About Me</a>
+            <a href="#projects" class="menu-link">Projects</a>
+            <a href="#skills" class="menu-link">Skills</a>
+            <a href="#contact" class="menu-link">Contact</a>
+          </div>
+
+          <a
+            href="./dls/Abdelshafy_Ghareeb_CV.pdf"
+            download
+            class="menu-cv-btn"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Download CV
+          </a>
+        </nav>
+      </div>
     </header>
 
-    <main>
-      <section id="about">
-        <h2>About Me</h2>
-        <p>
-          I’m an accountant transitioning into a software developer career.<br />
-          I’m passionate about building clean and functional web experiences<br />
-          using HTML, CSS, JavaScript, and Node.js.
-        </p>
-      </section>
+    <!--  MOBILE MENU  -->
+    <div
+      class="mobile-menu"
+      id="mobileMenu"
+      role="dialog"
+      aria-label="Navigation menu"
+    >
+      <div class="box xxl">
+        <a href="#hero" class="menu-link">Home</a>
+        <a href="#about" class="menu-link">About Me</a>
+        <a href="#projects" class="menu-link">Projects</a>
+        <a href="#skills" class="menu-link">Skills</a>
+        <a href="#contact" class="menu-link">Contact</a>
+        <a href="./dls/Abdelshafy_Ghareeb_CV.pdf" download class="menu-cv-btn">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Download CV
+        </a>
+      </div>
+    </div>
 
-      <section id="skills">
-        <h2>Skills</h2>
-        <ul>
-          <li>HTML / CSS / JavaScript</li>
-          <li>React.js</li>
-          <li>Node.js / Express</li>
-          <li>MySQL</li>
-          <li>Git & GitHub</li>
-        </ul>
-      </section>
-
-      <section id="projects">
-        <h2>Projects</h2>
-        <p>
-          🕶️
-          <strong>VisionX – Smart Glasses</strong>
-          – A fictional landing page showcasing futuristic smart glasses
-          <br />with modern design and responsive layout.
-        </p>
-        <p>
-          🧴
-          <strong>Perfumeira</strong>
-          – Modern e-commerce site for luxury perfumes.
-        </p>
-      </section>
-
-      <section id="app-space">
-        <h2>Shafy App Space</h2>
-        <div class="app-grid">
-          <a href="apps/calendar/">
+    <!--  HERO  -->
+    <section class="hero section" id="hero">
+      <div class="box xxl">
+        <div class="hero-inner">
+          <div class="hero-text">
+            <h1 class="hero-name">Abdelshafy Ghareeb</h1>
+            <p class="hero-tagline">Full-Stack Web Developer</p>
+            <p class="hero-phrase">
+              "Turning complex problems into clean, elegant code."
+            </p>
+            <div class="hero-btns">
+              <a href="#projects" class="btn-primary">View My Work</a>
+              <a href="#contact" class="btn-outline">Contact Me</a>
+            </div>
+          </div>
+          <div class="hero-avatar-wrap">
             <img
-              src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/128/calendar-icon.png"
-              alt="calendar app icon"
+              class="hero-avatar"
+              src="./imgs/portfolio_picture.png"
+              alt="Abdelshafy Ghareeb"
             />
-            Calendar
-          </a>
-
-          <a href="projects/vision-x/">
-            <img
-              src="https://icons.iconarchive.com/icons/designbolts/free-multimedia/128/3D-Glasses-icon.png"
-              alt="vision x icon"
-            />
-            Vision X
-          </a>
+          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="contact">
-        <h2>Contact</h2>
-        <p>
-          Email:
-          <a href="mailto:abdelshafigharib14@gmail.com"
-            >abdelshafigharib14@gmail.com</a
-          >
-        </p>
-        <p>
-          GitHub:
-          <a href="https://github.com/abdelshafy98" target="_blank"
-            >github.com/abdelshafy98</a
-          >
-        </p>
-      </section>
-    </main>
+    <!--  ABOUT  -->
+    <section class="about section" id="about">
+      <div class="box xxl">
+        <span class="section-label">Who I am</span>
+        <h2 class="section-title">About Me</h2>
+        <div class="about-inner">
+          <img
+            class="about-img mobile"
+            src="https://placehold.co/600x300/0d1525/38bdf8?text=I+Can+Make+Your+Ideas+Real"
+            alt="Abdelshafy at work"
+          />
+          <img
+            class="about-img tablet"
+            src="https://placehold.co/600x520/0d1525/38bdf8?text=I+Can+Make+Your+Ideas+Real"
+            alt="Abdelshafy at work"
+          />
+          <img
+            class="about-img desktop"
+            src="https://placehold.co/600x300/0d1525/38bdf8?text=I+Can+Make+Your+Ideas+Real"
+            alt="Abdelshafy at work"
+          />
+          <p class="about-text">
+            I'm a Full-Stack Web Developer specialised in building scalable
+            applications with Node.js, Express, and MySQL. I balance technical
+            precision in backend architecture with a clean, responsive approach
+            to frontend design using HTML, CSS, and JavaScript. My experience
+            ranges from optimising navigation logic for dynamic landing pages to
+            designing complex business management software. I'm dedicated to
+            delivering high-performance digital solutions that combine
+            functional efficiency with a professional aesthetic.
+          </p>
+        </div>
+      </div>
+    </section>
 
+    <!--  PROJECTS  -->
+    <section class="projects section" id="projects">
+      <div class="box xxl">
+        <span class="section-label">What I've built</span>
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+          <!-- Project 1 - VisionX -->
+          <div class="project-card">
+            <div class="project-thumb-placeholder">🚀</div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+              </div>
+              <h3 class="project-title">VisionX - Product Landing Page</h3>
+              <p class="project-desc">
+                A modern, single-page marketing site for a fictional tech
+                product. Built with clean HTML, CSS, and vanilla JavaScript -
+                featuring smooth scroll navigation, animated sections, and a
+                fully responsive layout.
+              </p>
+              <div class="project-links">
+                <a
+                  href="https://github.com/abdelshafy98/VisionX-Landing-Page-Project"
+                  target="_blank"
+                  rel="noopener"
+                  class="project-link"
+                >
+                  <!-- GitHub icon -->
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.9.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.73.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56C20.72 21.37 24 17.07 24 12 24 5.65 18.85.5 12 .5z"
+                    />
+                  </svg>
+                  GitHub
+                </a>
+                <a
+                  href="./projects/vision-x/"
+                  target="_blank"
+                  rel="noopener"
+                  class="project-link"
+                >
+                  <!-- External link icon -->
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  Live Demo
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 - WeatherZip -->
+          <div class="project-card">
+            <div class="project-thumb-placeholder">🌤️</div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">Node.js</span>
+                <span class="tag">Express</span>
+                <span class="tag">API</span>
+              </div>
+              <h3 class="project-title">
+                WeatherZip - City Weather by ZIP Code
+              </h3>
+              <p class="project-desc">
+                A server-side weather app built with Express.js. Enter any US
+                ZIP code and get the current temperature and conditions for that
+                city - powered by a third-party weather API and rendered with a
+                clean, responsive UI.
+              </p>
+              <div class="project-links">
+                <a
+                  href="https://github.com/abdelshafy98"
+                  target="_blank"
+                  rel="noopener"
+                  class="project-link"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.9.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.73.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56C20.72 21.37 24 17.07 24 12 24 5.65 18.85.5 12 .5z"
+                    />
+                  </svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 - The Awesome Calendar -->
+          <div class="project-card">
+            <div class="project-thumb-placeholder">📅</div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">RTL</span>
+              </div>
+              <h3 class="project-title">
+                The Awesome Calendar - Attendance Tracker
+              </h3>
+              <p class="project-desc">
+                An Arabic RTL employee attendance tracking web app built with
+                vanilla HTML, CSS, and JavaScript. Features a live progress bar,
+                attendance badges, Friday toggle, select-all control, smooth
+                animations, and a fully responsive layout across all screen
+                sizes.
+              </p>
+              <div class="project-links">
+                <a
+                  href="https://github.com/abdelshafy98"
+                  target="_blank"
+                  rel="noopener"
+                  class="project-link"
+                >
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.9.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.73.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56C20.72 21.37 24 17.07 24 12 24 5.65 18.85.5 12 .5z"
+                    />
+                  </svg>
+                  GitHub
+                </a>
+                <a
+                  href="./apps/calendar/"
+                  target="_blank"
+                  rel="noopener"
+                  class="project-link"
+                >
+                  <!-- External link icon -->
+                  <svg
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                  Live Demo
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--  SKILLS  -->
+    <section class="skills section" id="skills">
+      <div class="box xxl">
+        <span class="section-label">My toolkit</span>
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-pill"><span class="skill-dot"></span>HTML</div>
+          <div class="skill-pill"><span class="skill-dot"></span>CSS</div>
+          <div class="skill-pill">
+            <span class="skill-dot"></span>JavaScript
+          </div>
+          <div class="skill-pill"><span class="skill-dot"></span>React</div>
+          <div class="skill-pill"><span class="skill-dot"></span>Tailwind</div>
+          <div class="skill-pill"><span class="skill-dot"></span>Git</div>
+          <div class="skill-pill"><span class="skill-dot"></span>GitHub</div>
+          <div class="skill-pill"><span class="skill-dot"></span>Node.js</div>
+          <div class="skill-pill"><span class="skill-dot"></span>MySQL</div>
+        </div>
+      </div>
+    </section>
+
+    <!--  CONTACT  -->
+    <section class="contact section" id="contact">
+      <div class="box xxl">
+        <span class="section-label">Get in touch</span>
+        <h2 class="section-title">Contact Me</h2>
+
+        <div class="contact-layout">
+          <!-- Left: info -->
+          <div class="contact-info">
+            <p class="contact-info-intro">
+              Have a project in mind or just want to say hello? Fill in the form
+              and I'll get back to you as soon as possible.
+            </p>
+            <div class="contact-info-items">
+              <!-- Email -->
+              <div class="contact-info-item">
+                <div class="contact-info-icon">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                    />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                </div>
+                <div class="contact-info-detail">
+                  <span>Email</span>
+                  <a href="mailto:abdelshafigharib14@gmail.com"
+                    >abdelshafigharib14@gmail.com</a
+                  >
+                </div>
+              </div>
+
+              <!-- Location -->
+              <div class="contact-info-item">
+                <div class="contact-info-icon">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </div>
+                <div class="contact-info-detail">
+                  <span>Location</span>
+                  <p>Egypt - Available remotely worldwide</p>
+                </div>
+              </div>
+
+              <!-- GitHub -->
+              <div class="contact-info-item">
+                <div class="contact-info-icon">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.9.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.73.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56C20.72 21.37 24 17.07 24 12 24 5.65 18.85.5 12 .5z"
+                    />
+                  </svg>
+                </div>
+                <div class="contact-info-detail">
+                  <span>GitHub</span>
+                  <a
+                    href="https://github.com/abdelshafy98"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    github.com/abdelshafy98
+                  </a>
+                </div>
+              </div>
+
+              <!-- LinkedIn -->
+              <div class="contact-info-item">
+                <div class="contact-info-icon">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.56V9H3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"
+                    />
+                  </svg>
+                </div>
+                <div class="contact-info-detail">
+                  <span>LinkedIn</span>
+                  <a
+                    href="https://linkedin.com/in/abdelshafy-ghareeb"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    linkedin.com/in/abdelshafy-ghareeb
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: form -->
+          <form class="contact-form" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Your name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Tell me about your project…"
+                required
+              ></textarea>
+            </div>
+            <div class="contact-actions">
+              <button type="submit" class="btn-submit">Send Message</button>
+              <a href="./dls/Abdelshafy_Ghareeb_CV.pdf" download class="btn-cv">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Download CV
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!--  FOOTER  -->
     <footer>
-      <p>&copy; 2025 Abdelshafy Ghareeb</p>
+      <div class="social-links">
+        <!-- GitHub -->
+        <a
+          href="https://github.com/abdelshafy98"
+          target="_blank"
+          rel="noopener"
+          class="social-link"
+          aria-label="GitHub"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.9.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.73.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56C20.72 21.37 24 17.07 24 12 24 5.65 18.85.5 12 .5z"
+            />
+          </svg>
+        </a>
+        <!-- LinkedIn -->
+        <a
+          href="https://linkedin.com/in/abdelshafy-ghareeb"
+          target="_blank"
+          rel="noopener"
+          class="social-link"
+          aria-label="LinkedIn"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM3.56 20.45h3.56V9H3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"
+            />
+          </svg>
+        </a>
+        <!-- Email -->
+        <a
+          href="mailto:abdelshafigharib14@gmail.com"
+          class="social-link"
+          aria-label="Email"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+            />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+        </a>
+        <!-- Facebook -->
+        <a
+          href="https://facebook.com/AbdelshafyGhareeb"
+          target="_blank"
+          rel="noopener"
+          class="social-link"
+          aria-label="Facebook"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.88v2.27h3.32l-.53 3.49h-2.79V24C19.61 23.1 24 18.1 24 12.07z"
+            />
+          </svg>
+        </a>
+      </div>
+      <p class="footer-copy">
+        © <span id="cy">2026</span> Abdelshafy Ghareeb - Built with ❤️
+      </p>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="./js/app.js"></script>
   </body>
 </html>
